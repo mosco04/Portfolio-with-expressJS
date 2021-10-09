@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+  <body class="vh-100 p-6" >
+    <%- include('../partials/navigation-index.ejs') %>
+      <main id="aboutMe"  class="d-flex h-100   pt-6 justify-content-center align-items-end  overflow-hidden ">
+        <form>
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" aria-describedby="emailHelp">
+              <div id="firstName" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" aria-describedby="emailHelp">
+              <div id="lastName" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" aria-describedby="emailHelp">
+              <div id="address" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Email address</label>
+              <input type="text" class="form-control" id="address" aria-describedby="emailHelp">
+              <div id="address" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="phonenumber" class="form-label">Phone Number</label>
+              <input type="number" class="form-control" id="phonenumber">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </main>
+  </body>
+
+</html>
