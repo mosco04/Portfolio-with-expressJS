@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path')
-const JSONdb = require('simple-json-db');
+const JSONdb = require('simple-json-db');       //dependency to use a json file as a database
 const fs = require('fs')
 
-const dbPath = __dirname + '..\database\database.json'
+const dbPath = __dirname + '..\database\database.json' 
 const contacsPath =path.join(__dirname, '..', 'database', 'contactsdb.json')  
 const db = new JSONdb(dbPath);
 
@@ -12,6 +12,8 @@ const db = new JSONdb(dbPath);
 db.set("username", "edward",)
 db.set("password", "edward_007",)
 db.set('isLoggedIn', false)
+
+//read the conntacts json file and add it to the json database
 fs.readFile(contacsPath, 'utf8', function (err, data) {
   if (err) throw err;
   obj = JSON.parse(data);
@@ -63,17 +65,14 @@ router.get('/logout', function(req, res, next) {
 
 //Auth result
 router.post('/login', function(req, res, next) {
-  // check username and password
+  // check for correct username and password
   if(((req.body.username === db.get('username')) &&
   (req.body.password === db.get('password')))){
-    db.set('isLoggedIn', true)
+    db.set('isLoggedIn', true)    
     res.redirect('/business')
   }else{
     res.render('login', { title: 'Wrong' }) 
   }
-
-  // res.redirect('/login')
-
 });
 
 // Projects route
