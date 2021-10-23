@@ -15,6 +15,11 @@ router.get('/about', function(req, res, next) {
   res.render('about', { title: 'About' });
 });
 
+// Auth roue
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'Login' });
+});
+
 // Projects route
 router.get('/project', function(req, res, next) {
   res.render('project', { title: 'project' });
