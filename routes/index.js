@@ -35,6 +35,11 @@ router.get('/about', function(req, res, next) {
   res.render('about', { title: 'About' });
 });
 
+// Update Contacts route
+router.get('/updateContacts', function(req, res, next) {
+  res.render('updateContacts', { title: 'Update Contacts' });
+});
+
 // Business route
 router.get('/business', function(req, res, next) {
   if(db.get('isLoggedIn')){
