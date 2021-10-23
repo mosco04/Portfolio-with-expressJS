@@ -5,7 +5,7 @@
   <body class="vh-100 p-6 bg-dark" >
     <%- include('../partials/navigation-index.ejs') %>
     <main  class="d-flex flex-row justify-content-center overflow-hidden p-5">
-        <table class="table table-dark h-100">
+        <table class="table table-dark my-3 h-100">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -15,24 +15,22 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
+                  <% for(var i=0; i<contacts.length; i++) {%>
+                      <tr>
+                        <th scope="row"><%=i+1%> </th>
+                        <td><%= contacts[i].name %></td>
+                        <td><%= contacts[i].email %></td>
+                        <td><%= contacts[i].phone %></td>
+                        <td>
+                          <button class="btn btn-primary btn-sm">
+                            <a class="fw-bold text-white" href="/updateContact">Update</a>
+                          </button>
+                          <button class="btn btn-danger btn-sm">
+                            <a class="fw-bold text-white" href="/delete/<%= contacts[i].id%>">Delete</a>
+                          </button>
+                        </td>
+                      </tr>
+                <% } %>
             </tbody>
           </table>
     </main>

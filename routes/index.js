@@ -1,17 +1,27 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path')
-const { body,validationResult } = require('express-validator');
 const JSONdb = require('simple-json-db');
-const db = new JSONdb(__dirname + '..\database\database.json');
+const fs = require('fs')
+
+const dbPath = __dirname + '..\database\database.json'
+const contacsPath =path.join(__dirname, '..', 'database', 'contactsdb.json')  
+const db = new JSONdb(dbPath);
+
 // hardcode username and password
 db.set("username", "edward",)
 db.set("password", "edward_007",)
 db.set('isLoggedIn', false)
+fs.readFile(contacsPath, 'utf8', function (err, data) {
+  if (err) throw err;
+  obj = JSON.parse(data);
+  db.set('contacts', obj.contacts)
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Home' });
+  console.log(db.get('contacts'));
 });
 
 router.get('/home', function(req, res, next) {
@@ -26,24 +36,41 @@ router.get('/about', function(req, res, next) {
 // Business route
 router.get('/business', function(req, res, next) {
   if(db.get('isLoggedIn')){
-    res.render('business', { title: 'Business' });
+    res.render('business', { title: 'Business', contacts: db.get('contacts') });
   }else{
     res.redirect('/login') 
-    // ('login', { title: 'Login' });
   }
 });
+
+//Delete contacts route
+router.get('/delete/:id', function(req, res, next) {
+  const contacts = db.get('contacts')
+  const {id} = req.params
+  const newContacts = contacts.filter(item => item.id !== id)
+  db.set('contacts', newContacts)
+});
+
 // Auth route
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
 
+// Auth logout route
+router.get('/logout', function(req, res, next) {
+  db.set('isLoggedIn', false)
+  res.redirect('/')
+});
+
 //Auth result
 router.post('/login', function(req, res, next) {
   // check username and password
-  ((req.body.username === db.get('username')) &&
-  (req.body.password === db.get('password')))  ?
-  res.redirect('/business'): 
-  res.render('login', { title: 'Wrong' }) 
+  if(((req.body.username === db.get('username')) &&
+  (req.body.password === db.get('password')))){
+    db.set('isLoggedIn', true)
+    res.redirect('/business')
+  }else{
+    res.render('login', { title: 'Wrong' }) 
+  }
 
   // res.redirect('/login')
 
@@ -66,4 +93,4 @@ router.get('/services', function(req, res, next) {
 
 
 
-module.exports = router;
+module.exports = {router, db};
