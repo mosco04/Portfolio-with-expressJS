@@ -1,4 +1,5 @@
 {
     "username": "edward",
-    "password": "edward_007"
+    "password": "edward_007",
+    "isLoggedIn": false
 }
